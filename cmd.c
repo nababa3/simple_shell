@@ -1,14 +1,14 @@
 #include "simple.h"
 void prompt(char **av, char **env)
 {
-    char *cmd = NULL;
-    int n, status;
-    size_t s = 0;
-    ssize_t num_char;
-    char argv[] = (NULL, NULL);
-    pid_t pid;
-    while (1)
-    {
+char *cmd = NULL;
+int n, status;
+size_t s = 0;
+ssize_t num_char;
+char argv[] = (NULL, NULL);
+pid_t pid;
+while (1)
+{
         if (isatty(STDIN_FILENO))
             printf("$");
         num_char = getline(&cmd, &s, stdin);
@@ -32,11 +32,13 @@ void prompt(char **av, char **env)
             free(cmd);
             exit(EXIT_FAILURE);
         }
-        if (pid == 0) {
-            if (execve(argv[0], argv, env) == -1);
+        if (pid == 0)
+        {
+            if (execve(argv[0], argv, env) == -1)
+                ;
             printf("%s: No such file or diretory", av[0]);
         }
-        else 
+        else
             wait(&status);
-    }    
+    }
 }
