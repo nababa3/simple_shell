@@ -1,13 +1,12 @@
 #include "shell.h"
 
 /**
- * myhistory - displays the history list, one command by line, preceded
- *              with line numbers, starting at 0.
- * @info: Structure containing potential arguments. Used to maintain
- *        constant function prototype.
+ * _myhistory - displays the history list.
+ * @info: Structure containing potential arguments.
+ *
  *  Return: Always 0
  */
-int myhistory(info_t *info)
+int _myhistory(info_t *info)
 {
 	print_list(info->history);
 	return (0);
@@ -25,7 +24,7 @@ int unset_alias(info_t *info, char *str)
 	char *p, c;
 	int ret;
 
-	p = strchr(str, '=');
+	p = _strchr(str, '=');
 	if (!p)
 		return (1);
 	c = *p;
@@ -47,7 +46,7 @@ int set_alias(info_t *info, char *str)
 {
 	char *p;
 
-	p = strchr(str, '=');
+	p = _strchr(str, '=');
 	if (!p)
 		return (1);
 	if (!*++p)
@@ -69,7 +68,7 @@ int print_alias(list_t *node)
 
 	if (node)
 	{
-		p = strchr(node->str, '=');
+		p = _strchr(node->str, '=');
 		for (a = node->str; a <= p; a++)
 			_putchar(*a);
 		_putchar('\'');
@@ -81,12 +80,12 @@ int print_alias(list_t *node)
 }
 
 /**
- * myalias - mimics the alias builtin (man alias)
- * @info: Structure containing potential arguments. Used to maintain
- *          constant function prototype.
+ * _myalias - mimics the alias builtin (man alias)
+ * @info: Structure containing potential arguments.
+ *
  *  Return: Always 0
  */
-int myalias(info_t *info)
+int _myalias(info_t *info)
 {
 	int i = 0;
 	char *p = NULL;
@@ -104,7 +103,7 @@ int myalias(info_t *info)
 	}
 	for (i = 1; info->argv[i]; i++)
 	{
-		p = strchr(info->argv[i], '=');
+		p = _strchr(info->argv[i], '=');
 		if (p)
 			set_alias(info, info->argv[i]);
 		else
@@ -113,4 +112,3 @@ int myalias(info_t *info)
 
 	return (0);
 }
-
